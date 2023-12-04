@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/", urlRouter);
+app.use("/api", urlRouter);
 
 const port = 3000;
 const start = async () => {

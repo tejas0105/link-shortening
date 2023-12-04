@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 const Links = ({ result }) => {
-  console.log(result);
   return (
-    <div style={{ margin: "2rem" }}>
+    <div className="links-container">
       <ul>
-        <p className="ogLink">Original Link: {result.data.originalURL}</p>
+        <p className="ogLink">
+          <strong>Original Link: </strong> {result.data.originalURL}
+        </p>
         <p className="shortLink">
           {" "}
-          Short URL:
+          <strong>Short Link: </strong>
           <a
             className="link"
             href={result.data.shortURL}

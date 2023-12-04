@@ -10,6 +10,6 @@ const router = express.Router();
 router.route("/").get(home);
 router.route("/short").post(generateNewShortUrl);
 router.get("/:shortid", getShortIdAndRedirect);
-router.get("/analytics", getAnalytics);
+router.get("/analytics/:shortid", getAnalytics);
 
 module.exports = router;

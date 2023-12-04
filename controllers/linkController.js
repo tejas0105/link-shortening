@@ -60,13 +60,17 @@ const getShortIdAndRedirect = async (req, res) => {
 };
 
 const getAnalytics = async (req, res) => {
-  const result = await ShortUrl.find();
-  console.log(result);
+  const shortId = req.params.shortid;
+  const result = await ShortUrl.findOne({ code: shortId });
   if (!result)
-    return res
-      .status(404)
-      .json({ status: "failed", message: "Data not found" });
-  res.status(200).json({ status: "success", result });
+    return res.status(404).json({ status: "failed", message: "URL not found" });
+  return res.status(200).json({
+    status: "success",
+    data: {
+      totalClicks: result.visitHistory.length,
+      createdAt: result.createdAt,
+    },
+  });
 };
 
 module.exports = {

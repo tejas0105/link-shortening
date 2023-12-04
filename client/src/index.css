@@ -9,21 +9,21 @@
   font-family: "Hedvig Letters Sans", sans-serif;
 }
 
-.redirect,
-.btn-generate,
-.btn-analytics {
-  display: inline-block;
-  padding: 10px 15px;
-  font-size: 20px;
-  border-radius: 0;
-}
-
 .container {
   height: 20rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+.redirect,
+.btn-generate,
+.btn-analytics-disabled,
+.btn-analytics {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 20px;
+  border-radius: 0;
 }
 
 .redirect {
@@ -52,6 +52,21 @@
   background-color: rgb(5, 120, 214);
 }
 
+.btn-analytics:hover {
+  background-color: rgb(108, 178, 235);
+}
+
+.btn-analytics:active {
+  background-color: rgb(5, 120, 214);
+}
+
+.btn-analytics-disabled {
+  margin-left: 1rem;
+  border: 1px solid rgb(136, 136, 136);
+  background-color: rgb(44, 151, 238);
+  border-radius: 6px 6px 6px 6px;
+}
+
 .link {
   list-style: none;
   text-decoration: none;
@@ -60,17 +75,38 @@
 }
 
 .ogLink {
+  margin: 0%;
   font-size: 20px;
-  font-weight: bold;
 }
 
 .shortLink {
+  margin-top: 3%;
   font-size: 20px;
-  font-weight: bold;
 }
 
 .links {
   font-size: 22px;
   display: flex;
   margin: 1rem;
+}
+
+.analytics {
+  display: flex;
+
+  justify-content: center;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: 550;
+}
+
+.links-container {
+  position: relative;
+  margin: 0%;
+}
+
+.clicks {
+  margin-bottom: 3%;
+}
+.createdAt {
+  margin: 0%;
 }
