@@ -11,29 +11,52 @@ const home = async (req, res) => {
 
 const generateNewShortUrl = async (req, res) => {
   const shortId = shortid();
+  const urlRegex =
+    /^(https?:\/\/)?([a-zA-Z0-9_-]+(\.[a-zA-Z]{2,})+)(\/[a-zA-Z0-9_\-]+)*(\/?(\?[a-zA-Z0-9_]+=[a-zA-Z0-9_%]+&?)?)?$/;
   const link = process.env.baseURL + "/" + shortId;
   const body = req.body;
   if (!body.url)
     return res
       .status(400)
       .json({ status: "failed", message: "url is requrired" });
-  const shortLink = await ShortUrl.findOne({
-    redirectURL: req.body.url,
-  });
-  if (shortLink)
-    return res.status(201).json({
-      data: { shortURL: shortLink.shortId, originalURL: shortLink.redirectURL },
+
+  const URL = req.body.url;
+
+  if (urlRegex.test(URL)) {
+    const shortLink = await ShortUrl.findOne({
+      redirectURL: req.body.url,
     });
-  const url = await ShortUrl.create({
-    code: shortId,
-    shortId: link,
-    redirectURL: body.url,
-    visitHistory: [],
-  });
-  return res.status(201).json({
-    status: "success",
-    data: { shortURL: url.shortId, originalURL: url.redirectURL },
-  });
+    if (shortLink)
+      return res.status(201).json({
+        data: {
+          shortURL: shortLink.shortId,
+          originalURL: shortLink.redirectURL,
+        },
+      });
+  } else {
+    return res.status(404).json({
+      status: "failed",
+      data: {},
+    });
+  }
+
+  if (urlRegex.test(URL)) {
+    const url = await ShortUrl.create({
+      code: shortId,
+      shortId: link,
+      redirectURL: body.url,
+      visitHistory: [],
+    });
+    return res.status(201).json({
+      status: "success",
+      data: { shortURL: url.shortId, originalURL: url.redirectURL },
+    });
+  } else {
+    return res.status(404).json({
+      status: "failed",
+      data: {},
+    });
+  }
 };
 
 const getShortIdAndRedirect = async (req, res) => {
