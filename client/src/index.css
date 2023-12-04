@@ -7,6 +7,7 @@
 
 * {
   font-family: "Hedvig Letters Sans", sans-serif;
+  background-color: rgb(234, 234, 234);
 }
 
 .container {
@@ -17,6 +18,7 @@
   flex-direction: column;
 }
 .redirect,
+.redirect-error,
 .btn-generate,
 .btn-analytics-disabled,
 .btn-analytics {
@@ -29,12 +31,19 @@
 .redirect {
   border: 1px solid rgb(136, 136, 136);
   border-radius: 6px 0 0 6px;
+  transition: 0.3s;
+}
+.redirect-error {
+  border: 2px solid rgb(255, 0, 0);
+  border-radius: 6px 0 0 6px;
+  transition: 0.3s;
 }
 
 .btn-generate {
   border: 1px solid rgb(136, 136, 136);
   background-color: rgb(44, 151, 238);
   border-radius: 0 6px 6px 0;
+  transition: 0.3s;
 }
 
 .btn-analytics {
@@ -42,6 +51,7 @@
   border: 1px solid rgb(136, 136, 136);
   background-color: rgb(44, 151, 238);
   border-radius: 6px 6px 6px 6px;
+  transition: 0.3s;
 }
 
 .btn-generate:hover {
@@ -100,8 +110,33 @@
 }
 
 .links-container {
-  position: relative;
-  margin: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.links-container ul > img {
+  float: left;
+  margin-right: 25px;
+  margin-top: 41px;
+}
+
+.btn-copy {
+  border: 1px solid rgb(136, 136, 136);
+  margin-left: 1rem;
+  border-radius: 6px 6px 6px 6px;
+  background-color: rgb(44, 151, 238);
+  height: 32px;
+  width: 54px;
+  transition: 0.3s;
+}
+
+.btn-copy:hover {
+  background-color: rgb(108, 178, 235);
+}
+
+.btn-copy:active {
+  background-color: rgb(5, 120, 214);
 }
 
 .clicks {

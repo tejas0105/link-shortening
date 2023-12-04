@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { useState } from "react";
 import Links from "./Links";
 import Analytics from "./Analytics";
@@ -6,8 +7,13 @@ const Home = () => {
   const [link, setLink] = useState("");
   const [analytics, setAnalytics] = useState([]);
   const [result, setResult] = useState([]);
+  const [isCorrect, setIsCorrect] = useState(true);
 
   const sendData = async () => {
+    const urlRegex =
+      /^(https?:\/\/)?([a-zA-Z0-9_-]+(\.[a-zA-Z]{2,})+)(\/[a-zA-Z0-9_\-]+)*(\/?(\?[a-zA-Z0-9_]+=[a-zA-Z0-9_%]+&?)?)?$/;
+    if (urlRegex.test(link)) setIsCorrect(true);
+    else setIsCorrect(false);
     const data = await fetch("http://localhost:3000/short", {
       method: "POST",
       mode: "cors",
@@ -16,9 +22,9 @@ const Home = () => {
       },
       body: JSON.stringify({ url: link }),
     });
+
     const response = await data.json();
     setResult(response);
-    setLink("");
   };
 
   const getData = async () => {
@@ -39,7 +45,7 @@ const Home = () => {
           <input
             type="text"
             name="redirectURL"
-            className="redirect"
+            className={isCorrect ? "redirect" : "redirect-error"}
             value={link}
             onChange={(e) => {
               setLink(e.target.value);
@@ -59,7 +65,21 @@ const Home = () => {
           )}
         </form>
         {result.length === 0 || result.status === "failed" ? (
-          <h4 style={{ fontSize: "18px" }}>Please type url above</h4>
+          <h4 style={{ fontSize: "18px" }}>
+            {isCorrect ? (
+              "Please type or copy url above"
+            ) : (
+              <h4
+                style={{
+                  margin: "0%",
+                  fontSize: "18px",
+                  color: "rgb(255, 0, 0)",
+                }}
+              >
+                Please type correct URL
+              </h4>
+            )}
+          </h4>
         ) : (
           <Links result={result} />
         )}

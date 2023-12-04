@@ -34,9 +34,12 @@ const generateNewShortUrl = async (req, res) => {
         },
       });
   } else {
-    return res.status(404).json({
+    return res.status(400).json({
       status: "failed",
-      data: {},
+      data: {
+        shortURL: "",
+        originalURL: "",
+      },
     });
   }
 
@@ -52,9 +55,12 @@ const generateNewShortUrl = async (req, res) => {
       data: { shortURL: url.shortId, originalURL: url.redirectURL },
     });
   } else {
-    return res.status(404).json({
+    return res.status(400).json({
       status: "failed",
-      data: {},
+      data: {
+        shortURL: "",
+        originalURL: "",
+      },
     });
   }
 };
