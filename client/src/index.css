@@ -1,0 +1,76 @@
+/* .redirect {
+  height: 2.5rem;
+  width: 22rem;
+  font-size: 20px;
+} */
+@import url("https://fonts.googleapis.com/css2?family=Hedvig+Letters+Sans&display=swap");
+
+* {
+  font-family: "Hedvig Letters Sans", sans-serif;
+}
+
+.redirect,
+.btn-generate,
+.btn-analytics {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 20px;
+  border-radius: 0;
+}
+
+.container {
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.redirect {
+  border: 1px solid rgb(136, 136, 136);
+  border-radius: 6px 0 0 6px;
+}
+
+.btn-generate {
+  border: 1px solid rgb(136, 136, 136);
+  background-color: rgb(44, 151, 238);
+  border-radius: 0 6px 6px 0;
+}
+
+.btn-analytics {
+  margin-left: 1rem;
+  border: 1px solid rgb(136, 136, 136);
+  background-color: rgb(44, 151, 238);
+  border-radius: 6px 6px 6px 6px;
+}
+
+.btn-generate:hover {
+  background-color: rgb(108, 178, 235);
+}
+
+.btn-generate:active {
+  background-color: rgb(5, 120, 214);
+}
+
+.link {
+  list-style: none;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
+
+.ogLink {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.shortLink {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.links {
+  font-size: 22px;
+  display: flex;
+  margin: 1rem;
+}
