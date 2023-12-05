@@ -102,9 +102,16 @@ const getAnalytics = async (req, res) => {
   });
 };
 
+const getAlias = async (req, res) => {
+  const shortId = req.params.shortid;
+  const link = process.env.baseAlias + "/" + shortId;
+  const result = await ShortUrl.findOne({ code: shortId });
+};
+
 module.exports = {
   generateNewShortUrl,
   getShortIdAndRedirect,
   getAnalytics,
+  getAlias,
   home,
 };

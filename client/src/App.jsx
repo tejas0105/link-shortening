@@ -1,9 +1,9 @@
-import Home from "./Home";
+import Linktree from "./Linktree";
 
 function App() {
   return (
     <>
-      <Home />
+      <Linktree />
     </>
   );
 }
