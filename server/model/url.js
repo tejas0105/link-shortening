@@ -8,12 +8,17 @@ const shortUrlSchema = new mongoose.Schema(
     },
     shortId: {
       type: String,
-      required: true,
       unique: true,
     },
+    alias: {
+      type: String,
+      unique: true,
+    },
+    shortLink: { type: String },
+    urls: [{ url: { type: String } }],
     redirectURL: {
       type: String,
-      required: true,
+      unique: true,
     },
     visitHistory: [{ timestamp: { type: Number } }],
   },

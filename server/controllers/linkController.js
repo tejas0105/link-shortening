@@ -9,11 +9,41 @@ const home = async (req, res) => {
   });
 };
 
+const postAlias = async (req, res) => {
+  if (!req.body) {
+    res.status(400).json({
+      status: "failed",
+      message: "Alias not found",
+    });
+  }
+  const alias = req.body.alias;
+  const result = await ShortUrl.create({
+    alias: alias,
+    shortId: process.env.baseAlias + alias,
+  });
+  res.status(200).json({
+    status: "success",
+    data: {
+      alias: result.alias,
+      aliasedLink: result.shortId,
+    },
+  });
+};
+
+const getAlias = async (req, res) => {
+  const result = await ShortUrl.find();
+  res.status(200).json({
+    status: "success",
+    result,
+  });
+};
+
 const generateNewShortUrl = async (req, res) => {
   const shortId = shortid();
   const urlRegex =
     /^(https?:\/\/)?([a-zA-Z0-9_-]+(\.[a-zA-Z]{2,})+)(\/[a-zA-Z0-9_\-]+)*(\/?(\?[a-zA-Z0-9_]+=[a-zA-Z0-9_%]+&?)?)?$/;
   const link = process.env.baseURL + "/" + shortId;
+  console.log(link);
   const body = req.body;
   if (!body.url)
     return res
@@ -23,14 +53,14 @@ const generateNewShortUrl = async (req, res) => {
   const URL = req.body.url;
 
   if (urlRegex.test(URL)) {
-    const shortLink = await ShortUrl.findOne({
+    const result = await ShortUrl.findOne({
       redirectURL: req.body.url,
     });
-    if (shortLink)
+    if (result)
       return res.status(201).json({
         data: {
-          shortURL: shortLink.shortId,
-          originalURL: shortLink.redirectURL,
+          shortURL: result.shortLink,
+          originalURL: result.redirectURL,
         },
       });
   } else {
@@ -46,8 +76,7 @@ const generateNewShortUrl = async (req, res) => {
   if (urlRegex.test(URL)) {
     const url = await ShortUrl.create({
       code: shortId,
-      shortId: link,
-      redirectURL: body.url,
+      shortLink: link,
       visitHistory: [],
     });
     return res.status(201).json({
@@ -86,6 +115,7 @@ const getShortIdAndRedirect = async (req, res) => {
   if (!record)
     return res.status(404).json({ status: "failed", message: "URL not found" });
   res.redirect(record.redirectURL);
+  // res.json({ record });
 };
 
 const getAnalytics = async (req, res) => {
@@ -102,16 +132,30 @@ const getAnalytics = async (req, res) => {
   });
 };
 
-const getAlias = async (req, res) => {
-  const shortId = req.params.shortid;
-  const link = process.env.baseAlias + "/" + shortId;
-  const result = await ShortUrl.findOne({ code: shortId });
-};
+// const pushUrl = async (req, res) => {
+//   const shortId = shortid();
+//   const result = await ShortUrl.findOneAndUpdate(
+//     { alias: req.body.alias },
+//     {
+//       $push: {
+//         urls: {
+//           url: req.body.url,
+//         },
+//         shortLink: {
+//           link: process.env.baseURL + "/" + shortId,
+//         },
+//       },
+//     }
+//   );
+//   res.status(200).json({ status: "success", data: { result } });
+// };
 
 module.exports = {
-  generateNewShortUrl,
   getShortIdAndRedirect,
+  generateNewShortUrl,
   getAnalytics,
+  postAlias,
   getAlias,
+  // pushUrl,
   home,
 };

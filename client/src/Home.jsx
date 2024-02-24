@@ -14,7 +14,7 @@ const Home = () => {
       /^(https?:\/\/)?([a-zA-Z0-9_-]+(\.[a-zA-Z]{2,})+)(\/[a-zA-Z0-9_\-]+)*(\/?(\?[a-zA-Z0-9_]+=[a-zA-Z0-9_%]+&?)?)?$/;
     if (urlRegex.test(link)) setIsCorrect(true);
     else setIsCorrect(false);
-    const data = await fetch("http://localhost:3000/short", {
+    const data = await fetch("http://localhost:4000/short", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -29,7 +29,7 @@ const Home = () => {
 
   const getData = async () => {
     const data = await fetch(
-      `http://localhost:3000/api/analytics/${
+      `http://localhost:4000/api/analytics/${
         result.data.shortURL.split("/")[3]
       }`
     );

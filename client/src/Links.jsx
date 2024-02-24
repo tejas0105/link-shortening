@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 const Links = ({ result }) => {
-  let domain = result.data.originalURL.split(".")[1];
+  // let domain = result.data.originalURL.split(".")[1];
+  let domain = result.data;
   console.log(domain);
   let img = `https://www.google.com/s2/favicons?domain=www.${domain}.com&sz=50`;
   return (
